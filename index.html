@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fixzy SysMaker — Design a database. Get a production admin panel. AI-agent-ready.</title>
+<meta name="description" content="Visual database designer that generates production-ready Laravel + Filament admin systems. Desktop, web, CLI, and an MCP server for AI agents. Own your code — no lock-in.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f59e0b'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='%231a1206'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0a07;
+  --surface:#14110c;
+  --surface-2:#1c1811;
+  --line:#2b2418;
+  --ink:#f5f0e6;
+  --muted:#a89c85;
+  --accent:#f59e0b;
+  --accent-soft:rgba(245,158,11,.12);
+  --green:#10b981;
+  --radius:10px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(12,10,7,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--ink)}
+.logo-mark{width:26px;height:26px;border-radius:7px;background:var(--accent);display:grid;place-items:center;color:#1a1206;font-weight:700;font-size:15px}
+nav .links{display:flex;gap:22px;align-items:center;font-size:14px}
+nav .links a{color:var(--muted)}
+nav .links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14px;font-family:var(--font-display);transition:transform .12s ease,background .12s ease}
+.btn-primary{background:var(--accent);color:#1a1206}
+.btn-primary:hover{background:#ffb02e;transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);transform:translateY(-1px)}
+
+/* hero — asymmetric: copy left, product right */
+.hero{padding:88px 0 64px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.kicker{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:.06em;margin-bottom:18px}
+h1{font-family:var(--font-display);font-size:clamp(34px,4.6vw,52px);line-height:1.12;font-weight:700;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--accent)}
+.hero p.sub{margin-top:20px;font-size:18px;color:var(--muted);max-width:480px}
+.hero .cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.hero .meta{margin-top:22px;font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+.hero-shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.5)}
+.hero-shot img{width:100%;display:block}
+
+/* section scaffolding — one idea per section, alternating */
+section{padding:72px 0;border-top:1px solid var(--line)}
+.sec-label{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);font-weight:700;letter-spacing:-.01em;margin-bottom:14px}
+.sec-sub{color:var(--muted);max-width:620px;font-size:17px}
+
+/* four shells — pipeline diagram, not equal cards */
+.shells{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.shell{padding:26px 22px;border-right:1px solid var(--line);background:var(--surface)}
+.shell:last-child{border-right:none}
+.shell .n{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.shell h3{font-family:var(--font-display);font-size:17px;margin:8px 0 6px}
+.shell p{font-size:13.5px;color:var(--muted)}
+.shell.hot{background:var(--accent-soft)}
+.shell.hot h3{color:var(--accent)}
+.engine-note{margin-top:16px;font-family:var(--font-mono);font-size:13px;color:var(--muted)}
+.engine-note b{color:var(--green)}
+
+/* MCP demo — terminal */
+.mcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-top:8px}
+.term{background:#0a0805;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--font-mono);font-size:13px;line-height:1.75}
+.term-bar{display:flex;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#332b1c}
+.term-bar span{margin-left:8px;color:var(--muted);font-size:12px}
+.term-body{padding:18px 20px;overflow-x:auto}
+.term .u{color:#8ce99a}
+.term .ai{color:var(--muted)}
+.term .tool{color:var(--accent)}
+.term .ok{color:var(--green)}
+.mcp-points{list-style:none;margin-top:22px}
+.mcp-points li{padding:10px 0 10px 26px;position:relative;color:var(--muted);font-size:15px;border-bottom:1px solid var(--line)}
+.mcp-points li:last-child{border-bottom:none}
+.mcp-points li::before{content:'▸';position:absolute;left:2px;color:var(--accent)}
+.mcp-points li b{color:var(--ink)}
+
+/* what you get — dense two-column list */
+.get-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:36px}
+.get-grid ul{list-style:none}
+.get-grid li{padding:9px 0 9px 24px;position:relative;font-size:14.5px;color:var(--muted);border-bottom:1px solid var(--line)}
+.get-grid li b{color:var(--ink);font-weight:600}
+.get-grid li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:13px}
+
+/* engines + themes strip */
+.strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.chip{font-family:var(--font-mono);font-size:13px;padding:7px 14px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:var(--surface)}
+.chip b{color:var(--ink)}
+.swatches{display:flex;gap:10px;margin-top:18px;align-items:center}
+.sw{width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,.14)}
+
+/* screenshots row */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.shots figure{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.shots img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.shots figcaption{padding:10px 14px;font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+
+/* license */
+.license{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:40px 44px}
+.license h2{margin-bottom:10px}
+.license p{color:var(--muted);max-width:560px}
+.license .cta{display:flex;flex-direction:column;gap:10px;min-width:220px}
+
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:56px}
+  .mcp-grid{grid-template-columns:1fr}
+  .shells{grid-template-columns:1fr 1fr}
+  .shell{border-bottom:1px solid var(--line)}
+  .get-grid{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr}
+  .license{grid-template-columns:1fr}
+  nav .links a:not(.btn){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#"><span class="logo-mark">F</span> Fixzy SysMaker</a>
+    <div class="links">
+      <a href="#mcp">MCP</a>
+      <a href="#output">What you get</a>
+      <a href="#screens">Screens</a>
+      <a href="#license">License</a>
+      <a class="btn btn-ghost" href="https://github.com/mohdhafizi83/fixzy-sysmaker">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap hero">
+  <div>
+    <div class="kicker">$ fixzy generate — one engine, four shells</div>
+    <h1>Design a database.<br>Get a production admin.<br><em>AI-agent-ready.</em></h1>
+    <p class="sub">Fixzy SysMaker turns your visual schema into a complete Laravel&nbsp;+&nbsp;Filament system — migrations, models, resources, forms, imports, exports, realtime. Plain readable code you own. And an MCP server so Claude, Cursor &amp; friends can drive the whole pipeline for you.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/mohdhafizi83/fixzy-sysmaker">View on GitHub</a>
+      <a class="btn btn-ghost" href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/MCP.md">Try the MCP server</a>
+    </div>
+    <div class="meta">source-available · free for personal &amp; education · 97-fixture golden test matrix</div>
+  </div>
+  <div class="hero-shot">
+    <img src="assets/main-config.png" alt="Fixzy SysMaker studio — designing a Laravel + Filament app: stack, database, theme and core modules before one click of Generate">
+  </div>
+</header>
+
+<section id="shells">
+  <div class="wrap">
+    <div class="sec-label">Architecture</div>
+    <h2>One engine, four shells.</h2>
+    <p class="sec-sub">Your design lives in a stack-neutral intermediate representation. Every shell drives the exact same validated pipeline — no second-class interfaces.</p>
+    <div class="shells">
+      <div class="shell">
+        <div class="n">01 · desktop</div>
+        <h3>Electron app</h3>
+        <p>Visual schema designer, dashboard builder, one-click setup wizard. Windows &amp; macOS.</p>
+      </div>
+      <div class="shell">
+        <div class="n">02 · browser</div>
+        <h3>Local web UI</h3>
+        <p><code>fixzy serve</code> — the same designer over localhost, no install ceremony.</p>
+      </div>
+      <div class="shell">
+        <div class="n">03 · terminal</div>
+        <h3>Headless CLI</h3>
+        <p><code>fixzy generate</code> for CI pipelines and scripted builds. Deterministic output.</p>
+      </div>
+      <div class="shell hot">
+        <div class="n">04 · agents</div>
+        <h3>MCP server</h3>
+        <p><code>fixzy mcp</code> — AI assistants design, validate and generate through your pipeline.</p>
+      </div>
+    </div>
+    <div class="engine-note">generated code: <b>plain PHP + Blade</b> · no proprietary runtime · no lock-in</div>
+  </div>
+</section>
+
+<section id="mcp">
+  <div class="wrap">
+    <div class="sec-label">AI-agent-ready</div>
+    <h2>Let your AI build the boring 80%.</h2>
+    <p class="sec-sub">Register <code>fixzy mcp</code> once with Claude Desktop or Cursor. The assistant calls the same tools the GUI uses — every step validated, nothing free-written.</p>
+    <div class="mcp-grid">
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i><span>claude desktop · fixzy mcp</span></div>
+        <div class="term-body">
+<span class="u">you:</span> <span class="ai">Create a library system: books (title, isbn, stock),</span><br>
+<span class="ai">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loans (book_id, borrowed_at). Validate, then generate.</span><br><br>
+<span class="tool">→ fixzy_create_project</span> <span class="ok">✓ Library</span><br>
+<span class="tool">→ fixzy_add_table</span> ×2 <span class="ok">✓ books, loans</span><br>
+<span class="tool">→ fixzy_add_field</span> ×5 <span class="ok">✓ typed + required</span><br>
+<span class="tool">→ fixzy_set_relationship</span> <span class="ok">✓ loans.book_id → books.id</span><br>
+<span class="tool">→ fixzy_validate_schema</span> <span class="ok">✓ valid, 0 errors</span><br>
+<span class="tool">→ fixzy_generate</span> <span class="ok">✓ 54 files → ~/projects/library</span>
+        </div>
+      </div>
+      <div>
+        <ul class="mcp-points">
+          <li><b>Deny-by-default gating</b> — read-only until you pass <code>--allow-write</code> / <code>--allow-generate</code>.</li>
+          <li><b>PathGuard enforced</b> — output allowlisted; traversal and symlink escapes rejected.</li>
+          <li><b>Deploy never exposed</b> — touching a live deployment stays a human decision.</li>
+          <li><b>Same validation as the GUI</b> — the IR gate catches bad schemas before codegen.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="output">
+  <div class="wrap">
+    <div class="sec-label">What you get</div>
+    <h2>Not a prototype. A shipped system.</h2>
+    <p class="sec-sub">One generation pass produces the whole Laravel + Filament application layer:</p>
+    <div class="get-grid">
+      <ul>
+        <li><b>Migrations, models &amp; seeders</b> — with soft deletes, userstamps, indexes</li>
+        <li><b>Filament resources</b> — lists, forms, detail views, relation managers</li>
+        <li><b>CSV importers &amp; exporters</b> — with labels and validation</li>
+        <li><b>Dashboard builder</b> — 12 widget types, live/poll refresh, kiosk mode</li>
+        <li><b>Auth modules</b> — Google SSO, LDAP/AD, 2FA (TOTP/email), captcha</li>
+      </ul>
+      <ul>
+        <li><b>Multi-tenancy</b> — tenant scoping and row ownership</li>
+        <li><b>Audit trail + activity log</b> — independently selectable</li>
+        <li><b>Realtime</b> — Reverb or Pusher, live widgets and chat</li>
+        <li><b>Workflow engine</b> — visual hooks compiling to real PHP observers</li>
+        <li><b>Deployment guide</b> — engine-aware: SQLite, MySQL, PostgreSQL, Supabase, Neon</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="sec-label">The studio</div>
+    <h2>Design it visually, ship it in minutes.</h2>
+    <div class="shots">
+      <figure><img src="assets/generated-app.png" alt="Generated Laravel + Filament admin, live"><figcaption>generated-app — the result, live</figcaption></figure>
+      <figure><img src="assets/dashboard-builder.png" alt="Dashboard builder screen"><figcaption>dashboard-builder — widgets &amp; live mode</figcaption></figure>
+      <figure><img src="assets/menu-management.png" alt="Menu management screen"><figcaption>menu-management — navigation control</figcaption></figure>
+    </div>
+    <div class="strip" style="margin-top:30px">
+      <span class="chip">db: <b>SQLite · MySQL · PostgreSQL · Supabase · Neon</b></span>
+      <span class="chip">themes: <b>amber · emerald · slate · custom hex</b></span>
+    </div>
+    <div class="swatches">
+      <span class="sw" style="background:#f59e0b"></span>
+      <span class="sw" style="background:#10b981"></span>
+      <span class="sw" style="background:#475569"></span>
+      <span style="font-size:13px;color:var(--muted);font-family:var(--font-mono)">any hex → 11-shade Filament palette</span>
+    </div>
+  </div>
+</section>
+
+<section id="license">
+  <div class="wrap">
+    <div class="license">
+      <div>
+        <h2>Free where it matters. Licensed where it earns.</h2>
+        <p>Fixzy SysMaker is source-available under a non-commercial license: free for personal, educational, research, government and non-profit use. Commercial use is covered by an affordable license — and every generated file is yours to keep, forever.</p>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/mohdhafizi83/fixzy-sysmaker">Star on GitHub</a>
+        <a class="btn btn-ghost" href="mailto:mohdhafizi83@gmail.com">Commercial license</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Mohd Hafizi Mohammad Nor · Fixzy SysMaker</span>
+    <span><a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/MCP.md">MCP docs</a> · <a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/FAQ.md">FAQ</a> · <a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/SECURITY.md">Security</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
