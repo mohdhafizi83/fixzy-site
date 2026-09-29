@@ -109,6 +109,8 @@ h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);font-weight:
 .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
 .shots figure{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
 .shots img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.shots-full{grid-template-columns:repeat(2,1fr)}
+.shots-full img{aspect-ratio:auto;object-fit:contain}
 .shots figcaption{padding:10px 14px;font-size:13px;color:var(--muted);font-family:var(--font-mono)}
 
 /* license */
@@ -163,7 +165,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <div class="meta">source-available · free for personal &amp; education · 97-fixture golden test matrix</div>
   </div>
   <div class="hero-shot">
-    <img src="assets/main-config.png" alt="Fixzy SysMaker studio — designing a Laravel + Filament app: stack, database, theme and core modules before one click of Generate">
+    <img src="assets/02_help_panel_demo.png" alt="Fixzy SysMaker studio with contextual help panel — focus any field and its explanation appears on the right">
   </div>
 </header>
 
@@ -257,10 +259,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-label">The studio</div>
     <h2>Design it visually, ship it in minutes.</h2>
-    <div class="shots">
-      <figure><img src="assets/generated-app.png" alt="Generated Laravel + Filament admin, live"><figcaption>generated-app — the result, live</figcaption></figure>
-      <figure><img src="assets/dashboard-builder.png" alt="Dashboard builder screen"><figcaption>dashboard-builder — widgets &amp; live mode</figcaption></figure>
-      <figure><img src="assets/menu-management.png" alt="Menu management screen"><figcaption>menu-management — navigation control</figcaption></figure>
+    <p class="sec-sub">Every screen of the generator, from stack selection to the generated app itself. Click any field inside the studio and a contextual help panel explains it — no docs hunting.</p>
+    <div class="shots shots-full">
+      <figure><img src="assets/01_stack_core.png" alt="Technologies Stack tab — Laravel + Filament, database engine, deletion strategy and core module checklist"><figcaption>stack &amp; core — modules at a glance</figcaption></figure>
+      <figure><img src="assets/03_models_design.png" alt="Models Design tab — tables and fields with type, length and validation settings"><figcaption>models design — tables &amp; fields</figcaption></figure>
+      <figure><img src="assets/04_menu_management.png" alt="Menu management — three menu groups with nested items and custom links"><figcaption>menu management — groups, items, custom links</figcaption></figure>
+      <figure><img src="assets/06_dashboard_builder.png" alt="Dashboard Builder — 16 widgets covering all 12 widget types with live refresh"><figcaption>dashboard builder — 12 widget types</figcaption></figure>
+      <figure><img src="assets/08_generated_dashboard.png" alt="Generated Laravel + Filament dashboard with stat cards, bar, pie, doughnut, line, area, combo, radar, scatter, bubble and polar charts"><figcaption>generated app — every chart type, live data</figcaption></figure>
+      <figure><img src="assets/09_generated_list.png" alt="Generated list page with populated student records, search, filters, summary and pagination"><figcaption>generated app — list, filters, pagination</figcaption></figure>
+      <figure><img src="assets/10_kiosk.png" alt="Kiosk wall display mode — auto-rotating full-screen dashboard"><figcaption>kiosk mode — wall display</figcaption></figure>
+      <figure><img src="assets/07_security.png" alt="Security and technical settings tab"><figcaption>security &amp; technical</figcaption></figure>
     </div>
     <div class="strip" style="margin-top:30px">
       <span class="chip">db: <b>SQLite · MySQL · PostgreSQL · Supabase · Neon</b></span>
