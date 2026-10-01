@@ -119,6 +119,16 @@ h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);font-weight:
 .license p{color:var(--muted);max-width:560px}
 .license .cta{display:flex;flex-direction:column;gap:10px;min-width:220px}
 
+/* downloads */
+.dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.dl-card{display:block;border:1px solid var(--line);border-radius:12px;padding:22px 24px;background:var(--surface);text-decoration:none;transition:border-color .12s ease,transform .12s ease}
+.dl-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.dl-card .os{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--ink)}
+.dl-card .fmt{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:6px}
+.dl-card .go{font-size:13px;color:var(--accent);margin-top:12px;font-weight:600}
+.dl-note{margin-top:18px;font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+.dl-note a{color:var(--accent)}
+
 footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
@@ -130,6 +140,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .get-grid{grid-template-columns:1fr}
   .shots{grid-template-columns:1fr}
   .license{grid-template-columns:1fr}
+  .dl-grid{grid-template-columns:1fr 1fr}
   nav .links a:not(.btn){display:none}
 }
 @media (prefers-reduced-motion:reduce){
@@ -147,6 +158,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <a href="#mcp">MCP</a>
       <a href="#output">What you get</a>
       <a href="#screens">Screens</a>
+      <a href="#downloads">Downloads</a>
       <a href="#license">License</a>
       <a class="btn btn-ghost" href="https://github.com/mohdhafizi83/fixzy-sysmaker">GitHub</a>
     </div>
@@ -159,10 +171,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <h1>Design a database.<br>Get a production admin.<br><em>AI-agent-ready.</em></h1>
     <p class="sub">Fixzy SysMaker turns your visual schema into a complete Laravel&nbsp;+&nbsp;Filament system — migrations, models, resources, forms, imports, exports, realtime. Plain readable code you own. And an MCP server so Claude, Cursor &amp; friends can drive the whole pipeline for you.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/mohdhafizi83/fixzy-sysmaker">View on GitHub</a>
-      <a class="btn btn-ghost" href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/MCP.md">Try the MCP server</a>
+      <a class="btn btn-primary" id="dl-hero" href="#downloads">Download v1.0.2</a>
+      <a class="btn btn-ghost" href="https://github.com/mohdhafizi83/fixzy-sysmaker">View on GitHub</a>
     </div>
-    <div class="meta">source-available · free for personal &amp; education · 97-fixture golden test matrix</div>
+    <div class="meta">Apache 2.0 · free &amp; open source · commercial use welcome · 97-fixture golden test matrix</div>
   </div>
   <div class="hero-shot">
     <img src="assets/02_help_panel_demo.png" alt="Fixzy SysMaker studio with contextual help panel — focus any field and its explanation appears on the right">
@@ -283,16 +295,56 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
 </section>
 
+<section id="downloads">
+  <div class="wrap">
+    <h2>Download Fixzy SysMaker</h2>
+    <p style="color:var(--muted)">Desktop installers for the current release — <b>v1.0.2</b>. All binaries ship with <a style="color:var(--accent)" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/SHA256SUMS.txt">SHA256 checksums</a>.</p>
+    <div class="dl-grid">
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/Fixzy.SysMaker.Setup.1.0.2.exe">
+        <div class="os">Windows</div>
+        <div class="fmt">.exe installer · 110 MB</div>
+        <div class="go">Download →</div>
+      </a>
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/Fixzy.SysMaker-1.0.2.dmg">
+        <div class="os">macOS (Intel)</div>
+        <div class="fmt">.dmg · 132 MB</div>
+        <div class="go">Download →</div>
+      </a>
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/Fixzy.SysMaker-1.0.2-arm64.dmg">
+        <div class="os">macOS (Apple Silicon)</div>
+        <div class="fmt">.dmg · 127 MB</div>
+        <div class="go">Download →</div>
+      </a>
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/Fixzy.SysMaker-1.0.2.AppImage">
+        <div class="os">Linux</div>
+        <div class="fmt">.AppImage · 130 MB</div>
+        <div class="go">Download →</div>
+      </a>
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/fixzy-sysmaker_1.0.2_amd64.deb">
+        <div class="os">Linux (deb)</div>
+        <div class="fmt">.deb amd64 · 100 MB</div>
+        <div class="go">Download →</div>
+      </a>
+      <a class="dl-card" href="https://github.com/mohdhafizi83/fixzy-sysmaker/releases/latest">
+        <div class="os">All releases</div>
+        <div class="fmt">installers + checksums + changelog</div>
+        <div class="go">GitHub Releases →</div>
+      </a>
+    </div>
+    <div class="dl-note">No installer handy? <code>fixzy serve</code> runs the same designer in your browser — see <a href="https://github.com/mohdhafizi83/fixzy-sysmaker#readme">README</a>.</div>
+  </div>
+</section>
+
 <section id="license">
   <div class="wrap">
     <div class="license">
       <div>
-        <h2>Free where it matters. Licensed where it earns.</h2>
-        <p>Fixzy SysMaker is source-available under a non-commercial license: free for personal, educational, research, government and non-profit use. Commercial use is covered by an affordable license — and every generated file is yours to keep, forever.</p>
+        <h2>Free and open source. Commercial use welcome.</h2>
+        <p>Fixzy SysMaker is released under the <b>Apache License 2.0</b> — use it personally, academically, or commercially, in client projects, SaaS, or your own products. Every generated file is yours to keep, forever. The "Fixzy SysMaker" name and logo remain the author's trademark (see <a style="color:var(--accent)" href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/NOTICE">NOTICE</a>).</p>
       </div>
       <div class="cta">
         <a class="btn btn-primary" href="https://github.com/mohdhafizi83/fixzy-sysmaker">Star on GitHub</a>
-        <a class="btn btn-ghost" href="mailto:mohdhafizi83@gmail.com">Commercial license</a>
+        <a class="btn btn-ghost" href="mailto:mohdhafizi83@gmail.com">Commercial support</a>
       </div>
     </div>
   </div>
@@ -304,6 +356,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <span><a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/MCP.md">MCP docs</a> · <a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/docs/FAQ.md">FAQ</a> · <a href="https://github.com/mohdhafizi83/fixzy-sysmaker/blob/main/SECURITY.md">Security</a></span>
   </div>
 </footer>
+
+<script>
+// Point the hero Download button straight at the visitor's platform binary.
+(function(){
+  var base='https://github.com/mohdhafizi83/fixzy-sysmaker/releases/download/v1.0.2/';
+  var btn=document.getElementById('dl-hero');
+  if(!btn) return;
+  var ua=navigator.userAgent, url=null, label='Download v1.0.2';
+  if(/Windows/.test(ua)){url=base+'Fixzy.SysMaker.Setup.1.0.2.exe';label='Download for Windows';}
+  else if(/Mac OS X/.test(ua)){
+    var arm=(/Apple Silicon|ARM|arm64/.test(ua)||navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    url=base+(arm?'Fixzy.SysMaker-1.0.2-arm64.dmg':'Fixzy.SysMaker-1.0.2.dmg');
+    label='Download for macOS'+(arm?' (Apple Silicon)':'');
+  }
+  else if(/Linux/.test(ua)){url=base+'Fixzy.SysMaker-1.0.2.AppImage';label='Download for Linux';}
+  if(url){btn.href=url;} else {btn.href='#downloads';}
+  btn.textContent=label;
+})();
+</script>
 
 </body>
 </html>
